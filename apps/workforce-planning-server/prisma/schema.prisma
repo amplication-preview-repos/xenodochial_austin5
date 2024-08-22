@@ -89,3 +89,12 @@ model Contractor {
   name                  String?
   updatedAt             DateTime               @updatedAt
 }
+
+model Role {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  name        String?
+  staffUser   String?
+  updatedAt   DateTime @updatedAt
+}

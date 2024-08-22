@@ -6,6 +6,8 @@ import { ContractorAssignmentModule } from "./contractorAssignment/contractorAss
 import { EmployeeAssignmentModule } from "./employeeAssignment/employeeAssignment.module";
 import { PositionRequirementModule } from "./positionRequirement/positionRequirement.module";
 import { ContractorModule } from "./contractor/contractor.module";
+import { RoleModule } from "./role/role.module";
+import { PermissionsModule } from "./permissions/permissions.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -25,6 +27,8 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
     EmployeeAssignmentModule,
     PositionRequirementModule,
     ContractorModule,
+    RoleModule,
+    PermissionsModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

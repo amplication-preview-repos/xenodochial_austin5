@@ -33,6 +33,10 @@ import { ContractorList } from "./contractor/ContractorList";
 import { ContractorCreate } from "./contractor/ContractorCreate";
 import { ContractorEdit } from "./contractor/ContractorEdit";
 import { ContractorShow } from "./contractor/ContractorShow";
+import { RoleList } from "./role/RoleList";
+import { RoleCreate } from "./role/RoleCreate";
+import { RoleEdit } from "./role/RoleEdit";
+import { RoleShow } from "./role/RoleShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -107,6 +111,13 @@ const App = (): React.ReactElement => {
           edit={ContractorEdit}
           create={ContractorCreate}
           show={ContractorShow}
+        />
+        <Resource
+          name="Role"
+          list={RoleList}
+          edit={RoleEdit}
+          create={RoleCreate}
+          show={RoleShow}
         />
       </Admin>
     </div>
