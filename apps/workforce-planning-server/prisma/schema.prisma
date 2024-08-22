@@ -1,0 +1,91 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Employee {
+  contractEndDate     DateTime?
+  contractStartDate   DateTime?
+  createdAt           DateTime             @default(now())
+  employeeAssignments EmployeeAssignment[]
+  id                  String               @id @default(cuid())
+  loading             Float?
+  name                String?
+  updatedAt           DateTime             @updatedAt
+}
+
+model Project {
+  country             String?
+  createdAt           DateTime             @default(now())
+  employeeAssignments EmployeeAssignment[]
+  id                  String               @id @default(cuid())
+  name                String?
+  projectStages       ProjectStage[]
+  updatedAt           DateTime             @updatedAt
+}
+
+model ProjectStage {
+  contractorAssignments ContractorAssignment[]
+  createdAt             DateTime               @default(now())
+  id                    String                 @id @default(cuid())
+  name                  String?
+  positionRequirements  PositionRequirement[]
+  project               Project?               @relation(fields: [projectId], references: [id])
+  projectId             String?
+  stageNumber           Int?
+  updatedAt             DateTime               @updatedAt
+}
+
+model ContractorAssignment {
+  contractor     Contractor?   @relation(fields: [contractorId], references: [id])
+  contractorId   String?
+  createdAt      DateTime      @default(now())
+  endDate        DateTime?
+  id             String        @id @default(cuid())
+  loading        Float?
+  projectStage   ProjectStage? @relation(fields: [projectStageId], references: [id])
+  projectStageId String?
+  startDate      DateTime?
+  updatedAt      DateTime      @updatedAt
+}
+
+model EmployeeAssignment {
+  createdAt             DateTime             @default(now())
+  employee              Employee?            @relation(fields: [employeeId], references: [id])
+  employeeId            String?
+  endDate               DateTime?
+  id                    String               @id @default(cuid())
+  loading               Float?
+  positionRequirement   PositionRequirement? @relation(fields: [positionRequirementId], references: [id])
+  positionRequirementId String?
+  project               Project?             @relation(fields: [projectId], references: [id])
+  projectId             String?
+  startDate             DateTime?
+  updatedAt             DateTime             @updatedAt
+}
+
+model PositionRequirement {
+  createdAt           DateTime             @default(now())
+  employeeAssignments EmployeeAssignment[]
+  id                  String               @id @default(cuid())
+  jobTitle            String?
+  projectStage        ProjectStage?        @relation(fields: [projectStageId], references: [id])
+  projectStageId      String?
+  quantity            Int?
+  updatedAt           DateTime             @updatedAt
+}
+
+model Contractor {
+  contractEndDate       DateTime?
+  contractStartDate     DateTime?
+  contractorAssignments ContractorAssignment[]
+  createdAt             DateTime               @default(now())
+  id                    String                 @id @default(cuid())
+  loading               Float?
+  name                  String?
+  updatedAt             DateTime               @updatedAt
+}
