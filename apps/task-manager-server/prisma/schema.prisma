@@ -1,0 +1,61 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Task {
+  assignee    String?
+  comments    Comment[]
+  createdAt   DateTime  @default(now())
+  description String?
+  id          String    @id @default(cuid())
+  project     Project?  @relation(fields: [projectId], references: [id])
+  projectId   String?
+  status      Status?   @relation(fields: [statusId], references: [id])
+  statusId    String?
+  title       String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Comment {
+  content   String?
+  createdAt DateTime @default(now())
+  createdBy String?
+  id        String   @id @default(cuid())
+  task      Task?    @relation(fields: [taskId], references: [id])
+  taskId    String?
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  name        String?
+  tasks       Task[]
+  updatedAt   DateTime @updatedAt
+}
+
+model Status {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  tasks     Task[]
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
